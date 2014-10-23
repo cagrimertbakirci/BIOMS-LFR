@@ -9,7 +9,8 @@ public class Individual implements Comparable<Individual> {
     public int[][] Genetics;
     private int Number;
     private double Fitness;
-    private int[] SensorTimes; 
+    private int[] SensorTimes;
+    private int LastSeen;
     private static double Threshold = 0;
     private static double[] CoeffPosition = {1,2,3,4,4,3,2,1};
     
@@ -34,7 +35,7 @@ public class Individual implements Comparable<Individual> {
     Individual(int[][] genetics,int number){
         Genetics = genetics;
         Number = number;
-        SensorTimes = new int[]{0,0,0,0,0,0,0,0};
+        SensorTimes = new int[]{0,0,0,0,0,0,0,0,0,0};
         Fitness=0;
     }
     
@@ -47,7 +48,7 @@ public class Individual implements Comparable<Individual> {
         }
         Number=0;
         Fitness=0;
-        SensorTimes = new int[]{0,0,0,0,0,0,0,0};
+        SensorTimes = new int[]{0,0,0,0,0,0,0,0,0,0};
     }
     
     //private methods
@@ -161,6 +162,14 @@ public class Individual implements Comparable<Individual> {
      */
     public double getThreshold(){
         return Threshold;
+    }
+    
+    /**
+     * Sets what side the line was last seen on.
+     * @param lastSeen the side that was last seen, -1 is left, 0 is center, 1 is right
+     */
+    public void setLastSeen(int lastSeen){
+        LastSeen=lastSeen;
     }
     
     public void setFitness(double i){

@@ -30,7 +30,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private Individual I;
     private int indNum, genNum, sendStringTimeout=0;
     private static boolean readFlag=true;
-    private int sensorTimes[]={0,0,0,0,0,0,0,0};
+    private int sensorTimes[]={0,0,0,0,0,0,0,0,0,0};
+    private int lastSeen;
     private int sensorVals[]={0,0,0,0,0,0,0,0};
     private String sensorRead="";
     private long time;
@@ -55,6 +56,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         timer.schedule(new ExecuteEverySecond(), 0, 3000);
         jButton4ActionPerformed(null);
         time=System.currentTimeMillis();
+        lastSeen=0;
     }
 
     /**
@@ -721,9 +723,26 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             }catch(StringIndexOutOfBoundsException e){
                 
             }
-            for(int i=0; i<8; i++){
+            boolean lineSeen=false;
+            for(int i=0; i<8; i++){//updates sensorTimes, if sensor value is above 500, increment that senor time value
                 if(sensorVals[i]>=500){
                     sensorTimes[i]++;
+                    if(i<=1){
+                        lastSeen=-1;
+                    }else if(i>=7){
+                        lastSeen=1;
+                    }else{
+                        lastSeen=0;
+                    }
+                    lineSeen=true;
+                }
+            }
+            
+            if(!lineSeen){
+                if(lastSeen==-1){
+                    sensorTimes[8]++;
+                }else if(lastSeen==1){
+                    sensorTimes[9]++;
                 }
             }
         }
@@ -1184,7 +1203,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         //    sensorTimes=new double[]{0,0,0,0,0,0,0,0};
         //}
         I.setSensorTimes(sensorTimes);
-        sensorTimes=new int[]{0,0,0,0,0,0,0,0};
+        I.setLastSeen(lastSeen);
+        sensorTimes=new int[]{0,0,0,0,0,0,0,0,0,0};
         I.recalcFitness();
         G.replaceIndividual(I, indNum);
         indNum++;
@@ -1200,6 +1220,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         }
         jTextField1.setText(""+(indNum+1));
         displayInd();
+        lastSeen=0;
         appendToPane(jTextPane1,"NEXT INDIVIDUAL\n",Color.BLACK);
     }//GEN-LAST:event_NextIndActionPerformed
 
@@ -1247,7 +1268,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_PrintFitnessButton
 
     private void ResetFitness(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetFitness
-        sensorTimes=new int[]{0,0,0,0,0,0,0,0};
+        sensorTimes=new int[]{0,0,0,0,0,0,0,0,0,0};
         appendToPane(jTextPane1,"WHIPED\n",Color.BLACK);
     }//GEN-LAST:event_ResetFitness
 

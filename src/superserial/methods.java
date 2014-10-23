@@ -39,7 +39,12 @@ public class methods{
             out.close();
         } catch (IOException e) {
         }
-
+    }
+    
+    
+    public static void fitnessTable(){
+        
+        
     }
 
     /**
@@ -152,7 +157,10 @@ public class methods{
         }
 
     }
-
+    
+    
+    
+    
     /**
      * graphs the progress of generations by use of an array of Generations
      *
