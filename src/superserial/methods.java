@@ -162,11 +162,13 @@ public class methods{
     
     
     /**
-     * graphs the progress of generations by use of an array of Generations
+     * graphs the progress of generations
+     * AVERAGE FITNESS ignoring 0's
      *
      * @param gen - Array of generations to be graphed
+     * @param file - where the graph is stored
      */
-    public static void graphGenerations(Generation[] gen) {
+    public static void graphAverageGenerations(Generation[] gen, String file) {
         double fit;
         double[] fitaves = new double[gen.length];
         for (int i = 0; i < gen.length; i++) {
@@ -181,14 +183,47 @@ public class methods{
             dataSet.setValue((Number) fitaves[i], "Fitness", gen[i].getGeneration());
         }
         JFreeChart chart = ChartFactory.createLineChart("Average Fitness of Generations", "Generation", "Average Fitness", dataSet);
-        File file = new File("saves");
-        if (!file.isDirectory() || !file.exists()) {
-            file.mkdir();
+        File out_file = new File("saves"+ File.separator + file);
+        if (!out_file.isDirectory() || !out_file.exists()) {
+            out_file.mkdir();
         }
-
-        String save = "saves/defaultgraphGenerationssave.jpg";
         try {
-            ChartUtilities.saveChartAsJPEG(new File(save), chart, 500, 500);
+            ChartUtilities.saveChartAsJPEG(out_file, chart, 500, 500);
+        } catch (IOException e) {
+            System.err.print("failed to save graph\n");
+        }
+    }
+    
+    
+    /**
+     * graphs the progress of generations
+     * MAXIMUM FITNESS
+     * @param gen - Array of generations to be graphed
+     * @param file - where the graph is stored
+     */
+    public static void graphMaxGenerations(Generation[] gen, String file) {
+        double max;
+        double[] fitaves = new double[gen.length];
+        for (int i = 0; i < gen.length; i++) {
+            max = 0;
+            for (int j = 0; j < gen[i].getNumIndividuals(); j++) {
+                if(gen[i].getIndividual(j).getFitness()>max){
+                    max=gen[i].getIndividual(j).getFitness();
+                }
+            }
+            fitaves[i] = max;
+        }
+        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+        for (int i = 0; i < fitaves.length; i++) {
+            dataSet.setValue((Number) fitaves[i], "Fitness", gen[i].getGeneration());
+        }
+        JFreeChart chart = ChartFactory.createLineChart("Maximum Fitness of Generations", "Generation", "Maximum Fitness", dataSet);
+        File out_file = new File("saves"+ File.separator + file);
+        if (!out_file.isDirectory() || !out_file.exists()) {
+            out_file.mkdir();
+        }
+        try {
+            ChartUtilities.saveChartAsJPEG(out_file, chart, 500, 500);
         } catch (IOException e) {
             System.err.print("failed to save graph\n");
         }
@@ -198,6 +233,7 @@ public class methods{
      * graphs the progress through generations from the save files
      *
      * @param files - array of strings specifying the files to be read from
+     * @deprecated 
      */
     public static void graphGenerationsFromFiles(String[] files) {
         double fit;
@@ -233,6 +269,7 @@ public class methods{
      * graphs the fitness of the individuals in a generation
      *
      * @param gen - the generation to be graphed, type Generation
+     * @deprecated 
      */
     public static void graphGenerationFitness(Generation gen) {
         int num = gen.getNumIndividuals();
