@@ -109,6 +109,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         GenNum = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         ManualControlToggle = new javax.swing.JToggleButton();
         jSlider1 = new javax.swing.JSlider();
@@ -436,6 +437,13 @@ public class SuperSerialGUI extends javax.swing.JFrame {
 
         jLabel6.setText("/");
 
+        jButton8.setText("Load Latest");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -449,9 +457,12 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saveFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(GetGen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SaveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(GetGen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SaveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -472,7 +483,9 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                     .addComponent(GenNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(5, 5, 5)
-                .addComponent(GetGen)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GetGen)
+                    .addComponent(jButton8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(SaveFiles)
                 .addGap(43, 43, 43))
@@ -1280,6 +1293,12 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private void saveFileNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_saveFileNameActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
     
     private void printGen(Generation G, Color C){
         for(int i=0;i<G.getNumIndividuals();i++){
@@ -1633,6 +1652,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

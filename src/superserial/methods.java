@@ -40,12 +40,6 @@ public class methods{
         } catch (IOException e) {
         }
     }
-    
-    
-    public static void fitnessTable(){
-        
-        
-    }
 
     /**
      * Saves the genetics of one generation to a binary file. -----OBSOLITE-----
@@ -77,7 +71,21 @@ public class methods{
         } catch (IOException e) {
         }
     }
-
+    
+    public static void topSave(Generation gen, String file){
+        try{
+            File OF=new File("saves" + File.separator + file + ".top");
+            OF.getParentFile().mkdirs();
+            OF.createNewFile();
+            DataOutputStream out = new DataOutputStream(new FileOutputStream(OF));
+            out.writeInt(gen.getGeneration());
+        }catch (IOException e) {
+            System.out.println(e.toString());
+        }catch (SecurityException e){
+            System.out.println(e.toString());
+        }
+    }
+    
     /**
      * Saves the genetics of one generation to a binary file.
      *
