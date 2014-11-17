@@ -100,6 +100,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         GetGen = new javax.swing.JButton();
         SaveFiles = new javax.swing.JButton();
@@ -339,6 +340,14 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             }
         });
 
+        backButton.setText("Back");
+        backButton.setEnabled(false);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -356,7 +365,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(jButton7)
+                    .addComponent(backButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -391,7 +401,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NextGen)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1240,6 +1251,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         displayInd();
         lastSeen=0;
         appendToPane(jTextPane1,"NEXT INDIVIDUAL\n",Color.BLACK);
+        backButton.setEnabled(true);
     }//GEN-LAST:event_NextIndActionPerformed
 
     
@@ -1266,6 +1278,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         displayInd();
         appendToPane(jTextPane1,"NEXT GENERATION\n",Color.BLACK);
         GenNum.setText(""+genNum);
+        backButton.setEnabled(false);
     }//GEN-LAST:event_NextGenActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1320,6 +1333,23 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private void GenNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenNumActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GenNumActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        
+        sensorTimes=new int[]{0,0,0,0,0,0,0,0,0,0};
+        indNum--;
+        if(indNum>=0)
+            I=G.getIndividual(indNum);
+        GetGen.setEnabled(false);
+        SaveFiles.setEnabled(false);
+        if(indNum<=0){
+            backButton.setEnabled(false);
+        }
+        jTextField1.setText(""+(indNum+1));
+        displayInd();
+        lastSeen=0;
+        appendToPane(jTextPane1,"PREVIOUS INDIVIDUAL\n",Color.BLACK);
+    }//GEN-LAST:event_backButtonActionPerformed
     
     private void printGen(Generation G, Color C){
         for(int i=0;i<G.getNumIndividuals();i++){
@@ -1664,6 +1694,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private javax.swing.JButton SendMessage;
     private javax.swing.JTextField SerialText;
     private javax.swing.JTextField SpeedTextBox;
+    private javax.swing.JButton backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
