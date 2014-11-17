@@ -74,16 +74,29 @@ public class methods{
     
     public static void topSave(Generation gen, String file){
         try{
-            File OF=new File("saves" + File.separator + file + ".top");
+            File OF=new File("saves" + File.separator + file + File.separator + "TOP.top");
             OF.getParentFile().mkdirs();
             OF.createNewFile();
             DataOutputStream out = new DataOutputStream(new FileOutputStream(OF));
             out.writeInt(gen.getGeneration());
+            out.close();
         }catch (IOException e) {
             System.out.println(e.toString());
         }catch (SecurityException e){
             System.out.println(e.toString());
         }
+    }
+    
+    public static int getLatest(String file){
+        int i;
+        try{
+            DataInputStream in = new DataInputStream(new FileInputStream("saves" + File.separator + file + File.separator + "TOP.top"));
+            i= in.readInt();
+            in.close();
+        }catch(IOException e){
+            return -1;
+        }
+        return i;
     }
     
     /**
@@ -93,6 +106,7 @@ public class methods{
      * @param file - file to be saved to.
      */
     public static void generationSave(Generation gen, String file) {    // for machine reading
+        topSave(gen,file);
         try {
             File OF=new File("saves" + File.separator + file + File.separator + gen.getGeneration() + ".bot");
             OF.getParentFile().mkdirs();
@@ -100,7 +114,7 @@ public class methods{
             DataOutputStream out = new DataOutputStream(new FileOutputStream(OF));
             out.writeInt(gen.getGeneration());
             out.writeInt(gen.getNumIndividuals());
-            for (int n = 0; n < gen.getNumIndividuals()-1; n++) {
+            for (int n = 0; n < gen.getNumIndividuals(); n++) {
                 Individual individual = gen.getIndividual(n);
                 int[][] genetics = individual.getGenetics().clone();
                 for (int i = 0; i < 10; i++) {
@@ -127,17 +141,18 @@ public class methods{
      * }catch{ ... } Suggested usage: Generation generation = new
      * Generation("file.save");
      *
+     * @param generation gen number
      * @param file - file to be read from
      * @return - Object Generation
      * @throws IOException
      */
-    public static Generation getGeneration(String file) throws IOException {
+    public static Generation getGeneration(int generation, String file) throws IOException {
         int generationNumber;
         int individuals;
         int[][] genetics = new int[2][10];
         int[] sensorTimes = new int[8];
         try {
-            DataInputStream in = new DataInputStream(new FileInputStream("saves" + File.separator + file + ".bot"));
+            DataInputStream in = new DataInputStream(new FileInputStream("saves" + File.separator + file+ File.separator+ generation + ".bot"));
             generationNumber = in.readInt();
             individuals = in.readInt();
             Generation gen = new Generation(individuals, generationNumber);
@@ -249,7 +264,7 @@ public class methods{
         int[] gens = new int[files.length];
         try {
             for (int i = 0; i < files.length; i++) {
-                Generation gen = getGeneration(files[i]);
+                Generation gen = getGeneration(i, files[i]);
                 fit = 0;
                 gens[i] = gen.getGeneration();
                 for (int j = 0; j < gen.getNumIndividuals(); j++) {

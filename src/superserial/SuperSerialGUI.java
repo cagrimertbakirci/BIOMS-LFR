@@ -434,6 +434,11 @@ public class SuperSerialGUI extends javax.swing.JFrame {
 
         GenNum.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         GenNum.setText("1");
+        GenNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GenNumActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("/");
 
@@ -1159,7 +1164,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
      */
     private void RetreveGen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetreveGen
         try{
-            G=M.getGeneration(saveFileName.getText());
+            G=M.getGeneration(Integer.parseInt(GenNum.getText()), saveFileName.getText());
             indNum=25;
             genNum=G.getGeneration();
             jTextField1.setText(""+indNum);
@@ -1295,10 +1300,26 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_saveFileNameActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
-        
-        
+        try{
+            genNum= M.getLatest(saveFileName.getText());
+            G=M.getGeneration(genNum,saveFileName.getText());
+            indNum=25;
+            genNum=G.getGeneration();
+            jTextField1.setText(""+indNum);
+            jTextField2.setText(""+genNum);
+            NextInd.setEnabled(false);
+            NextGen.setEnabled(true);
+            appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
+        }catch(IOException e){
+            System.out.println(e.toString());
+        }catch(NullPointerException e){
+            System.out.println(e.toString());
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void GenNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenNumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GenNumActionPerformed
     
     private void printGen(Generation G, Color C){
         for(int i=0;i<G.getNumIndividuals();i++){
