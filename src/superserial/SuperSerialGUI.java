@@ -1335,7 +1335,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_GenNumActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        
+        NextInd.setEnabled(true);
         sensorTimes=new int[]{0,0,0,0,0,0,0,0,0,0};
         indNum--;
         if(indNum>=0)
