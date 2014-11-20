@@ -12,7 +12,7 @@ public class Individual implements Comparable<Individual> {
     private int[] SensorTimes;
     private int LastSeen;
     private static double Threshold = 0;
-    private static double[] CoeffPosition = {1,2,3,4,4,3,2,1};
+    private static double[] CoeffPosition = {1,1.1,1.2,1.3,1.3,1.2,1.1,1};
     
     /**
      * Constructor

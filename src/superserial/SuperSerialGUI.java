@@ -123,8 +123,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         KeyControlButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        MenuSave = new javax.swing.JMenuItem();
-        MenuLoad = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         MenuExit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -639,11 +638,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
 
         jMenu2.setText("File");
 
-        MenuSave.setText("Save");
-        jMenu2.add(MenuSave);
-
-        MenuLoad.setText("Load");
-        jMenu2.add(MenuLoad);
+        jMenuItem4.setText("Graph Menu");
+        jMenu2.add(jMenuItem4);
 
         MenuExit.setText("Exit");
         MenuExit.addActionListener(new java.awt.event.ActionListener() {
@@ -1705,8 +1701,6 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private javax.swing.JToggleButton ManualControlToggle;
     private javax.swing.JMenuItem MenuConnect;
     private javax.swing.JMenuItem MenuExit;
-    private javax.swing.JMenuItem MenuLoad;
-    private javax.swing.JMenuItem MenuSave;
     private javax.swing.JButton NextGen;
     private javax.swing.JButton NextInd;
     private javax.swing.JButton RightButton;
@@ -1741,6 +1735,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
