@@ -461,6 +461,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             }
         });
 
+        AutoSave.setSelected(true);
         AutoSave.setText("Autosave");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
