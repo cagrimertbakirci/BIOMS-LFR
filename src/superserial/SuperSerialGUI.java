@@ -111,6 +111,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         GenNum = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
+        AutoSave = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         ManualControlToggle = new javax.swing.JToggleButton();
         jSlider1 = new javax.swing.JSlider();
@@ -460,6 +461,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             }
         });
 
+        AutoSave.setText("Autosave");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -470,21 +473,24 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(saveFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(GetGen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(SaveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton8)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(GetGen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SaveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GenNum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                        .addComponent(GenNum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4))
+                    .addComponent(AutoSave))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -504,7 +510,9 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                     .addComponent(jButton8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(SaveFiles)
-                .addGap(43, 43, 43))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AutoSave)
+                .addGap(15, 15, 15))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Manual Control"));
@@ -1266,6 +1274,16 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }
     
     private void NextGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextGenActionPerformed
+        //saves
+        if(AutoSave.isSelected()){
+            try{
+                M.generationSave(G,saveFileName.getText());
+                appendToPane(jTextPane1,"AUTO-SAVE\n",Color.BLACK);
+            }catch(NullPointerException e){
+                System.out.println("SendGen failed: No generation to send");
+            }
+        }
+        //moves to next gen
         genNum++;
         G.nextGen();
         NextInd.setEnabled(true);
@@ -1674,6 +1692,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     
     private JButtonGroup MenuButtons;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox AutoSave;
     private javax.swing.JCheckBox AutoScroll;
     private javax.swing.JButton BackwardsButton;
     private javax.swing.JButton ClearText;
