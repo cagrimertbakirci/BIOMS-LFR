@@ -75,6 +75,10 @@ public class Generation {
     public int getGeneration() {
         return generation;
     }
+    
+    public void setGeneration(int i){
+        generation=i;
+    }
 
     /**
      * 

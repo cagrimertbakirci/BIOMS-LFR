@@ -101,6 +101,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         GetGen = new javax.swing.JButton();
         SaveFiles = new javax.swing.JButton();
@@ -348,6 +349,13 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             }
         });
 
+        jButton9.setText("'The Carrot'");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImproveFitness(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -364,10 +372,9 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6)
                     .addComponent(jButton7)
                     .addComponent(backButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,7 +389,14 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4))
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addGap(128, 128, 128))
+                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton9)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -397,7 +411,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton9))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NextGen)
@@ -1301,6 +1316,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         if(G==null)
             G= new Generation(25,1);
         G.nextGen();
+        G.setGeneration(1);
         displayInd();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -1365,6 +1381,13 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         lastSeen=0;
         appendToPane(jTextPane1,"PREVIOUS INDIVIDUAL\n",Color.BLACK);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void ImproveFitness(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImproveFitness
+        for(int i=0; i<8; i++){
+            sensorTimes[i]+=5;
+        }
+        appendToPane(jTextPane1,"FED\n",Color.BLACK);
+    }//GEN-LAST:event_ImproveFitness
     
     private void printGen(Generation G, Color C){
         for(int i=0;i<G.getNumIndividuals();i++){
@@ -1719,6 +1742,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
