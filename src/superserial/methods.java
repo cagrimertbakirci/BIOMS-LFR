@@ -292,7 +292,6 @@ public class methods{
      * graphs the fitness of the individuals in a generation
      *
      * @param gen - the generation to be graphed, type Generation
-     * @deprecated 
      */
     public static void graphGenerationFitness(Generation gen) {
         int num = gen.getNumIndividuals();

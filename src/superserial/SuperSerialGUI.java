@@ -654,6 +654,11 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         jMenu2.setText("File");
 
         jMenuItem4.setText("Graph Menu");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         MenuExit.setText("Exit");
@@ -1388,6 +1393,11 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         }
         appendToPane(jTextPane1,"FED\n",Color.BLACK);
     }//GEN-LAST:event_ImproveFitness
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        SelectGraph selectG=new SelectGraph();
+        selectG.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
     
     private void printGen(Generation G, Color C){
         for(int i=0;i<G.getNumIndividuals();i++){
