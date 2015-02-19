@@ -318,4 +318,397 @@ public class methods{
             System.err.print("Failed to save chart\n");
         }
     }
+    
+    /**
+     * Prints data on all of the generations this top file represents.
+     * @param f
+     * @return 
+     */
+    public File averageAbsoluteFitness(File f){
+        File out;
+        Generation G;
+        int genMax, genCur;
+        
+        try {
+            DataInputStream in = new DataInputStream(new FileInputStream(f));
+            genMax=in.readInt();
+            in.close();
+        } catch (IOException e) {
+            System.out.println("Failed to read from: "+f.getAbsolutePath());
+            genMax=0;
+        }
+        
+        
+        
+        int individuals, generationNumber;
+        int[] sensorTimes= new int[8];
+        int[][] genetics= new int[2][10];
+        float[] genFitness=new float[genMax];
+        String prePath = f.getPath().substring(0, f.getAbsolutePath().lastIndexOf("\\"));
+        
+        for(genCur=0;genCur<genMax; genCur++){
+            try {
+                DataInputStream in = new DataInputStream(new FileInputStream(prePath+"\\"+(genCur+1)+".bot"));
+                generationNumber = in.readInt();
+                individuals = in.readInt();
+                G = new Generation(individuals, generationNumber);
+                for (int n = 0; n < individuals; n++) {
+                    for (int i = 0; i < 10; i++) {
+                        genetics[0][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 10; i++) {
+                        genetics[1][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 8; i++) {
+                        sensorTimes[i] = in.readInt();
+                    }
+                    Individual individual = new Individual(genetics, n, sensorTimes);
+                    individual.recalcFitness();
+                    G.addIndividual(individual);
+                }
+                genFitness[genCur]=G.getAverageFitness();
+                in.close();
+
+            } catch (IOException e) {
+                System.out.println("Failed to read from: "+prePath+"\\"+(genCur+1)+".bot");
+            }
+        }
+        
+        
+        
+        //now to graph...
+        DefaultCategoryDataset dataSet;
+        dataSet = new DefaultCategoryDataset();
+        String legend = "individuals";
+        for (int i = 0; i < genMax; i++) {
+            dataSet.setValue((Number) genFitness[i], legend, i+1);
+        }
+        JFreeChart chart = ChartFactory.createBarChart("averageAbsoluteFitness", "Generations", "Fitness", dataSet);
+        String prevPath=f.getPath();
+        String save = prevPath.substring(0,prevPath.lastIndexOf("\\"))+"\\chart.jpg";
+        try {
+            out=new File(save);
+            ChartUtilities.saveChartAsJPEG(out , chart, 500, 500);
+        } catch (IOException e) {
+            out=null;
+            System.err.print("Failed to save chart\n");
+        }
+        return out;
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+        /**
+     * Prints data on all of the generations this top file represents.
+     * @param f
+     * @return 
+     */
+    public File bestAbsoluteFitness(File f){
+        File out;
+        Generation G;
+        int genMax, genCur;
+        
+        try {
+            DataInputStream in = new DataInputStream(new FileInputStream(f));
+            genMax=in.readInt();
+            in.close();
+        } catch (IOException e) {
+            System.out.println("Failed to read from: "+f.getAbsolutePath());
+            genMax=0;
+        }
+        
+        
+        
+        int individuals, generationNumber;
+        int[] sensorTimes= new int[8];
+        int[][] genetics= new int[2][10];
+        float[] genFitness=new float[genMax];
+        String prePath = f.getPath().substring(0, f.getAbsolutePath().lastIndexOf("\\"));
+        
+        for(genCur=0;genCur<genMax; genCur++){
+            try {
+                DataInputStream in = new DataInputStream(new FileInputStream(prePath+"\\"+(genCur+1)+".bot"));
+                generationNumber = in.readInt();
+                individuals = in.readInt();
+                G = new Generation(individuals, generationNumber);
+                for (int n = 0; n < individuals; n++) {
+                    for (int i = 0; i < 10; i++) {
+                        genetics[0][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 10; i++) {
+                        genetics[1][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 8; i++) {
+                        sensorTimes[i] = in.readInt();
+                    }
+                    Individual individual = new Individual(genetics, n, sensorTimes);
+                    individual.recalcFitness();
+                    G.addIndividual(individual);
+                }
+                genFitness[genCur]=G.getBestFitness();
+                in.close();
+
+            } catch (IOException e) {
+                System.out.println("Failed to read from: "+prePath+"\\"+(genCur+1)+".bot");
+            }
+        }
+        
+        
+        
+        //now to graph...
+        DefaultCategoryDataset dataSet;
+        dataSet = new DefaultCategoryDataset();
+        String legend = "individuals";
+        for (int i = 0; i < genMax; i++) {
+            dataSet.setValue((Number) genFitness[i], legend, i+1);
+        }
+        JFreeChart chart = ChartFactory.createBarChart("bestAbsoluteFitness", "Generations", "Fitness", dataSet);
+        String prevPath=f.getPath();
+        String save = prevPath.substring(0,prevPath.lastIndexOf("\\"))+"\\chart.jpg";
+        try {
+            out=new File(save);
+            ChartUtilities.saveChartAsJPEG(out , chart, 500, 500);
+        } catch (IOException e) {
+            out=null;
+            System.err.print("Failed to save chart\n");
+        }
+        return out;
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------
+     /**
+     * Prints data on all of the generations this top file represents.
+     * @param f
+     * @return 
+     */
+    public File averageRelativeFitness(File f){
+        File out;
+        Generation G;
+        int genMax, genCur;
+        
+        try {
+            DataInputStream in = new DataInputStream(new FileInputStream(f));
+            genMax=in.readInt();
+            in.close();
+        } catch (IOException e) {
+            System.out.println("Failed to read from: "+f.getAbsolutePath());
+            genMax=0;
+        }
+        
+        
+        
+        int individuals, generationNumber;
+        int[] sensorTimes= new int[8];
+        int[][] genetics= new int[2][10];
+        float[] genFitness=new float[genMax];
+        String prePath = f.getPath().substring(0, f.getAbsolutePath().lastIndexOf("\\"));
+        
+        for(genCur=0;genCur<genMax; genCur++){
+            try {
+                DataInputStream in = new DataInputStream(new FileInputStream(prePath+"\\"+(genCur+1)+".bot"));
+                generationNumber = in.readInt();
+                individuals = in.readInt();
+                G = new Generation(individuals, generationNumber);
+                for (int n = 0; n < individuals; n++) {
+                    for (int i = 0; i < 10; i++) {
+                        genetics[0][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 10; i++) {
+                        genetics[1][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 8; i++) {
+                        sensorTimes[i] = in.readInt();
+                    }
+                    Individual individual = new Individual(genetics, n, sensorTimes);
+                    individual.recalcFitness();
+                    G.addIndividual(individual);
+                }
+                genFitness[genCur]=G.getAverageFitness();
+                in.close();
+
+            } catch (IOException e) {
+                System.out.println("Failed to read from: "+prePath+"\\"+(genCur+1)+".bot");
+            }
+        }
+        
+        float best=0;
+        for(Float Fl:genFitness){
+            if(Fl>best)
+                best=Fl;
+        }
+        if(best!=0){
+            for(int i=0; i < genFitness.length; i++){
+                genFitness[i]/=best;
+            }
+        }
+        
+        
+        
+        //now to graph...
+        DefaultCategoryDataset dataSet;
+        dataSet = new DefaultCategoryDataset();
+        String legend = "individuals";
+        for (int i = 0; i < genMax; i++) {
+            dataSet.setValue((Number) genFitness[i], legend, i+1);
+        }
+        JFreeChart chart = ChartFactory.createBarChart("averageRelativeFitness", "Generations", "Fitness", dataSet);
+        String prevPath=f.getPath();
+        String save = prevPath.substring(0,prevPath.lastIndexOf("\\"))+"\\chart.jpg";
+        try {
+            out=new File(save);
+            ChartUtilities.saveChartAsJPEG(out , chart, 500, 500);
+        } catch (IOException e) {
+            out=null;
+            System.err.print("Failed to save chart\n");
+        }
+        return out;
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+        /**
+     * Prints data on all of the generations this top file represents.
+     * @param f
+     * @return 
+     */
+    public File bestRelativeFitness(File f){
+        File out;
+        Generation G;
+        int genMax, genCur;
+        
+        try {
+            DataInputStream in = new DataInputStream(new FileInputStream(f));
+            genMax=in.readInt();
+            in.close();
+        } catch (IOException e) {
+            System.out.println("Failed to read from: "+f.getAbsolutePath());
+            genMax=0;
+        }
+        
+        
+        
+        int individuals, generationNumber;
+        int[] sensorTimes= new int[8];
+        int[][] genetics= new int[2][10];
+        float[] genFitness=new float[genMax];
+        String prePath = f.getPath().substring(0, f.getAbsolutePath().lastIndexOf("\\"));
+        
+        for(genCur=0;genCur<genMax; genCur++){
+            try {
+                DataInputStream in = new DataInputStream(new FileInputStream(prePath+"\\"+(genCur+1)+".bot"));
+                generationNumber = in.readInt();
+                individuals = in.readInt();
+                G = new Generation(individuals, generationNumber);
+                for (int n = 0; n < individuals; n++) {
+                    for (int i = 0; i < 10; i++) {
+                        genetics[0][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 10; i++) {
+                        genetics[1][i] = in.readInt();
+                    }
+                    for (int i = 0; i < 8; i++) {
+                        sensorTimes[i] = in.readInt();
+                    }
+                    Individual individual = new Individual(genetics, n, sensorTimes);
+                    individual.recalcFitness();
+                    G.addIndividual(individual);
+                }
+                genFitness[genCur]=G.getBestFitness();
+                in.close();
+
+            } catch (IOException e) {
+                System.out.println("Failed to read from: "+prePath+"\\"+(genCur+1)+".bot");
+            }
+        }
+        
+        float best=0;
+        for(Float Fl:genFitness){
+            if(Fl>best)
+                best=Fl;
+        }
+        if(best!=0){
+            for(int i=0; i < genFitness.length; i++){
+                genFitness[i]/=best;
+            }
+        }
+        
+        //now to graph...
+        DefaultCategoryDataset dataSet;
+        dataSet = new DefaultCategoryDataset();
+        String legend = "individuals";
+        for (int i = 0; i < genMax; i++) {
+            dataSet.setValue((Number) genFitness[i], legend, i+1);
+        }
+        JFreeChart chart = ChartFactory.createBarChart("bestRelativeFitness", "Generations", "Fitness", dataSet);
+        String prevPath=f.getPath();
+        String save = prevPath.substring(0,prevPath.lastIndexOf("\\"))+"\\chart.jpg";
+        try {
+            out=new File(save);
+            ChartUtilities.saveChartAsJPEG(out , chart, 500, 500);
+        } catch (IOException e) {
+            out=null;
+            System.err.print("Failed to save chart\n");
+        }
+        return out;
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------
+    
+    
+    /**
+     * Prints data on the individual generation selected.
+     * @param f
+     * @return 
+     */
+    public File botLoad(File f){
+        File out;
+        Generation G;
+        int individuals, generationNumber;
+        int[] sensorTimes= new int[8];
+        int[][] genetics= new int[2][10];
+        try {
+            DataInputStream in = new DataInputStream(new FileInputStream(f));
+            generationNumber = in.readInt();
+            individuals = in.readInt();
+            G = new Generation(individuals, generationNumber);
+            for (int n = 0; n < individuals; n++) {
+                for (int i = 0; i < 10; i++) {
+                    genetics[0][i] = in.readInt();
+                }
+                for (int i = 0; i < 10; i++) {
+                    genetics[1][i] = in.readInt();
+                }
+                for (int i = 0; i < 8; i++) {
+                    sensorTimes[i] = in.readInt();
+                }
+                Individual individual = new Individual(genetics, n, sensorTimes);
+                individual.recalcFitness();
+                G.addIndividual(individual);
+            }
+            in.close();
+
+        } catch (IOException e) {
+            System.out.println("Failed to read from: "+f.getAbsolutePath());
+            individuals=0;
+            generationNumber=-1;
+            G=null;
+        }
+        
+        
+        
+        //now to graph...
+        DefaultCategoryDataset dataSet;
+        dataSet = new DefaultCategoryDataset();
+        String legend = "individuals";
+        for (int i = 0; i < individuals; i++) {
+            dataSet.setValue((Number) G.getIndividual(i).getFitness(), legend, G.getIndividual(i).getNumber());
+        }
+        JFreeChart chart = ChartFactory.createBarChart("Generation "+generationNumber, "individual", "Fitness", dataSet);
+        String prevPath=f.getPath();
+        String save = prevPath.substring(0,prevPath.lastIndexOf("\\"))+"\\chartGen"+generationNumber+".jpg";
+        try {
+            out=new File(save);
+            ChartUtilities.saveChartAsJPEG(out , chart, 500, 500);
+        } catch (IOException e) {
+            out=null;
+            System.err.print("Failed to save chart\n");
+        }
+        return out;
+    }
 }

@@ -14,15 +14,41 @@ import java.io.File;
  * @author Carlton Johnson
  */
 public class SelectGraph extends javax.swing.JFrame {
-
+    int GraphType;
     /**
      * Creates new form SelectGraph
+     * @param graphType type of graph to display
      */
-    public SelectGraph() {
+    public SelectGraph(int graphType) {
         initComponents();
-        BotFilter F=new BotFilter();
-        jFileChooser1.addChoosableFileFilter(F);
-        jFileChooser1.setFileFilter(F);
+        FileFilter f;
+        GraphType=graphType;
+        switch(graphType){
+            case 0:
+                f=new TopFilter();
+                break;
+            case 1:
+                f=new TopFilter();
+                break;
+            case 2:
+                f=new TopFilter();
+                break;
+            case 3:
+                f=new TopFilter();
+                break;
+            case 4:
+                f=new TopFilter();
+                break;
+            case 5:
+                f=new TopFilter();
+                break;
+            case 6:
+            default:
+                f=new TopFilter();
+        }
+        
+        jFileChooser1.addChoosableFileFilter(f);
+        jFileChooser1.setFileFilter(f);
         jFileChooser1.setMultiSelectionEnabled(false);
         jFileChooser1.setCurrentDirectory(new File("saves" + File.separator));
     }
@@ -69,7 +95,7 @@ public class SelectGraph extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         if(jFileChooser1.getSelectedFile()!=null){
-            DisplayGraph G=new DisplayGraph(jFileChooser1.getSelectedFile());
+            DisplayGraph G=new DisplayGraph(jFileChooser1.getSelectedFile(), GraphType);
             G.setVisible(true);
         }
         this.setVisible(false);
@@ -82,7 +108,6 @@ public class SelectGraph extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser1;
     // End of variables declaration//GEN-END:variables
 }
-
 
 class BotFilter extends FileFilter {
     /**
@@ -101,15 +126,41 @@ class BotFilter extends FileFilter {
         if (i > 0 && i < s.length() - 1) {
             if (s.substring(i + 1).toLowerCase().equals("bot")) {
                 return true;
-            }else if(s.substring(i + 1).toLowerCase().equals("top")){
+            }
+        }
+
+        return false;
+    }
+    @Override
+    public String getDescription() {
+        return "Accepts '.bot' files";
+    }
+}
+
+class TopFilter extends FileFilter {
+    /**
+     * @param f file path to check
+     * @return true if the file is of type bot or top
+     */
+    @Override
+    public boolean accept(File f) {
+        if (f.isDirectory()) {
+            return true;
+        }
+        String s = f.getName();
+        int i = s.lastIndexOf('.');
+        int t=i;
+
+        if (i > 0 && i < s.length() - 1) {
+            if(s.substring(i + 1).toLowerCase().equals("top")){
                 return true;
             }
         }
 
         return false;
     }
-
+    @Override
     public String getDescription() {
-        return "Accepts '.bot' and '.top' files";
+        return "Accepts '.top' files";
     }
 }

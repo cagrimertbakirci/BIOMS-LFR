@@ -68,6 +68,24 @@ public class Generation {
         return individualArray.length;
     }
     
+    public float getAverageFitness(){
+        float sum=0f;
+        int i;
+        for(i=0; i<individualArray.length;i++){
+            sum+=individualArray[i].getFitness();
+        }
+        return sum/i;
+    }
+    
+    public float getBestFitness(){
+        float best=0;
+        for(Individual I:individualArray){
+            if(I.getFitness() > best)
+                best=(float)I.getFitness();
+        }
+        return best;
+    }
+    
     /**
      * 
      * @return the generation number is returned

@@ -5,63 +5,22 @@
  */
 
 package superserial;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+import javax.swing.filechooser.FileFilter;
+
 /**
  *
  * @author Carlton Johnson
  */
-public class DisplayGraph extends javax.swing.JFrame {
+public class GraphType extends javax.swing.JFrame {
 
     /**
-     * Creates new form DisplayGraph
-     * @param F The location of the graph you want displayed.
+     * Creates new form GraphType
      */
-    public DisplayGraph(File F, int graphType) {
-        File img=null;
+    public GraphType() {
         initComponents();
         this.setVisible(true);
-        methods m=new methods();
-        String fileType=F.getName().substring(F.getName().lastIndexOf(".")+1);
-        
-        switch(graphType){
-            case 0:
-                img=m.averageAbsoluteFitness(F);
-                break;
-            case 1:
-                img=m.bestAbsoluteFitness(F);
-                break;
-            case 2:
-                img=m.averageRelativeFitness(F);
-                break;
-            case 3:
-                img=m.bestRelativeFitness(F);
-                break;
-            case 4:
-                
-                break;
-            case 5:
-                
-                break;
-            case 6:
-                
-                break;
-            default:
-                img=null;
-                this.setVisible(false);
-                this.dispose();
-        }
-        BufferedImage draw = null;
-        
-        try {
-            draw = ImageIO.read(img);
-        } catch (IOException e) {
-        }
-        ImageIcon imageIcon=new ImageIcon(draw);
-        jLabel1.setIcon(imageIcon);
     }
 
     /**
@@ -73,13 +32,14 @@ public class DisplayGraph extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Graph = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Return");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Averate Absolue Fitness", "Best Absolute Fitness", "Average Relative Fitness", "Best Relative Fitness", "Sensor Value Evolution", "Life Duration", "# of Outliers" }));
+
+        jButton1.setText("Select Type");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -91,39 +51,36 @@ public class DisplayGraph extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(0, 779, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Graph)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, 301, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addContainerGap()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Graph)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SelectGraph selectG=new SelectGraph(jComboBox1.getSelectedIndex());
+        selectG.setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Graph;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox jComboBox1;
     // End of variables declaration//GEN-END:variables
 }
+

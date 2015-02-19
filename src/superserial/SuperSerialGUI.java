@@ -1395,7 +1395,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ImproveFitness
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        SelectGraph selectG=new SelectGraph();
+        GraphType selectG=new GraphType();
         selectG.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
     
