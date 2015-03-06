@@ -9,6 +9,7 @@ import jssc.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -1199,20 +1200,35 @@ public class SuperSerialGUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void RetreveGen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetreveGen
-        try{
-            G=M.getGeneration(Integer.parseInt(GenNum.getText()), saveFileName.getText());
-            indNum=25;
-            genNum=G.getGeneration();
-            jTextField1.setText(""+indNum);
-            jTextField2.setText(""+genNum);
-            NextInd.setEnabled(false);
-            NextGen.setEnabled(true);
-            appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
-        }catch(IOException e){
-            System.out.println(e.toString());
-        }catch(NullPointerException e){
-            System.out.println(e.toString());
-        }
+        final JFrame fileChooserFrame = new JFrame("Load Generation");
+        fileChooserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        final JFileChooser FC=new JFileChooser();//add a FileFilter plz tks gby
+        FC.setVisible(true);
+        FC.setCurrentDirectory(new File("saves" + File.separator));
+        FC.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(FC.getSelectedFile()!=null){
+                    Generation temp=G;
+                    try{
+                        G=M.getGeneration(FC.getSelectedFile());
+                    }catch(IOException e){
+                        G=temp;
+                        System.out.println("Failed to read from file!!!");
+                    }
+                }
+                fileChooserFrame.setVisible(false);
+                fileChooserFrame.dispose();
+            }
+        });
+        
+        
+        
+        fileChooserFrame.add(FC);
+        
+        fileChooserFrame.pack();
+        fileChooserFrame.setVisible(true);
     }//GEN-LAST:event_RetreveGen
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed

@@ -7,6 +7,7 @@
 package superserial;
 
 import java.io.File;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -21,6 +22,7 @@ public class GraphType extends javax.swing.JFrame {
     public GraphType() {
         initComponents();
         this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

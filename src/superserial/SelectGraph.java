@@ -8,6 +8,7 @@ package superserial;
 
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
+import javax.swing.JFrame;
 
 /**
  *
@@ -51,6 +52,7 @@ public class SelectGraph extends javax.swing.JFrame {
         jFileChooser1.setFileFilter(f);
         jFileChooser1.setMultiSelectionEnabled(false);
         jFileChooser1.setCurrentDirectory(new File("saves" + File.separator));
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -77,17 +79,11 @@ public class SelectGraph extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 872, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 872, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -101,7 +97,10 @@ public class SelectGraph extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
-
+    
+    public File getSelectedFile(){
+        return jFileChooser1.getSelectedFile();
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -183,6 +183,52 @@ public class methods{
     
     
     
+    /**
+     * Retrieves the data of a single generation from a binary file Use try{ ...
+     * }catch{ ... } Suggested usage: Generation generation = new
+     * Generation("file.save");
+     *
+     * @param generation gen number
+     * @param file - file to be read from
+     * @return - Object Generation
+     * @throws IOException
+     */
+    public Generation getGeneration(File file) throws IOException {
+        int generationNumber;
+        int individuals;
+        int[][] genetics = new int[2][10];
+        int[] sensorTimes = new int[8];
+        try {
+            DataInputStream in = new DataInputStream(new FileInputStream(file));
+            generationNumber = in.readInt();
+            individuals = in.readInt();
+            Generation gen = new Generation(individuals, generationNumber);
+            for (int n = 0; n < individuals; n++) {
+                for (int i = 0; i < 10; i++) {
+                    genetics[0][i] = in.readInt();
+                }
+                for (int i = 0; i < 10; i++) {
+                    genetics[1][i] = in.readInt();
+                }
+                for (int i = 0; i < 8; i++) {
+                    sensorTimes[i] = in.readInt();
+                }
+                Individual individual = new Individual(genetics, n, sensorTimes);
+                individual.recalcFitness();
+                gen.addIndividual(individual);
+            }
+            in.close();
+
+            return gen;
+
+        } catch (IOException e) {
+            System.out.println("Failed to read from file");
+            throw e;
+        }
+
+    }
+    
+    
     
     /**
      * graphs the progress of generations
