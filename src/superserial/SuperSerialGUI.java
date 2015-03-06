@@ -313,6 +313,11 @@ public class SuperSerialGUI extends javax.swing.JFrame {
 
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField3.setEnabled(false);
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Create Initial Gen");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -1218,6 +1223,18 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                         System.out.println("Failed to read from file!!!");
                     }
                 }
+                
+                indNum=1;
+                genNum=G.getGeneration();
+                I=G.getIndividual(0);
+                jTextField1.setText(""+indNum);
+                jTextField2.setText(""+genNum);
+                NextInd.setEnabled(false);
+                NextGen.setEnabled(true);
+                appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
+                jTextField3.setText(I.toString());
+                displayInd();
+                
                 fileChooserFrame.setVisible(false);
                 fileChooserFrame.dispose();
             }
@@ -1229,6 +1246,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         
         fileChooserFrame.pack();
         fileChooserFrame.setVisible(true);
+        
     }//GEN-LAST:event_RetreveGen
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -1365,21 +1383,50 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_saveFileNameActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        try{
-            genNum= M.getLatest(saveFileName.getText());
-            G=M.getGeneration(genNum,saveFileName.getText());
-            indNum=25;
-            genNum=G.getGeneration();
-            jTextField1.setText(""+indNum);
-            jTextField2.setText(""+genNum);
-            NextInd.setEnabled(false);
-            NextGen.setEnabled(true);
-            appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
-        }catch(IOException e){
-            System.out.println(e.toString());
-        }catch(NullPointerException e){
-            System.out.println(e.toString());
-        }
+        final JFrame fileChooserFrame = new JFrame("Load Generation");
+        fileChooserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        final JFileChooser FC=new JFileChooser();//add a FileFilter plz tks gby
+        FC.setVisible(true);
+        FC.setCurrentDirectory(new File("saves" + File.separator));
+        FC.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(FC.getSelectedFile()!=null){
+                    Generation temp=G;
+                    try{
+                        int latest=M.getLatest(FC.getSelectedFile());
+                        String path=FC.getSelectedFile().getParent();
+                        G=M.getGeneration(latest, path.substring(path.lastIndexOf("\\")+1));
+                        
+                    }catch(IOException e){
+                        G=temp;
+                        System.out.println("Failed to read from file!!!");
+                    }
+                }
+                
+                indNum=1;
+                genNum=G.getGeneration();
+                I=G.getIndividual(0);
+                jTextField1.setText(""+indNum);
+                jTextField2.setText(""+genNum);
+                NextInd.setEnabled(false);
+                NextGen.setEnabled(true);
+                appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
+                jTextField3.setText(I.toString());
+                displayInd();
+                
+                fileChooserFrame.setVisible(false);
+                fileChooserFrame.dispose();
+            }
+        });
+        
+        
+        
+        fileChooserFrame.add(FC);
+        
+        fileChooserFrame.pack();
+        fileChooserFrame.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void GenNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenNumActionPerformed
@@ -1414,6 +1461,10 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         GraphType selectG=new GraphType();
         selectG.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
     
     private void printGen(Generation G, Color C){
         for(int i=0;i<G.getNumIndividuals();i++){

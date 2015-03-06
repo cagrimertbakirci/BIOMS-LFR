@@ -99,6 +99,18 @@ public class methods{
         return i;
     }
     
+    public static int getLatest(File file){
+        int i;
+        try{
+            DataInputStream in = new DataInputStream(new FileInputStream(file));
+            i= in.readInt();
+            in.close();
+        }catch(IOException e){
+            return -1;
+        }
+        return i;
+    }
+    
     /**
      * Saves the genetics of one generation to a binary file.
      *
