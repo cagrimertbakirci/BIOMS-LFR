@@ -1229,8 +1229,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 I=G.getIndividual(0);
                 jTextField1.setText(""+indNum);
                 jTextField2.setText(""+genNum);
-                NextInd.setEnabled(false);
-                NextGen.setEnabled(true);
+                NextInd.setEnabled(true);
+                NextGen.setEnabled(false);
                 appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
                 jTextField3.setText(I.toString());
                 displayInd();
@@ -1410,8 +1410,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 I=G.getIndividual(0);
                 jTextField1.setText(""+indNum);
                 jTextField2.setText(""+genNum);
-                NextInd.setEnabled(false);
-                NextGen.setEnabled(true);
+                NextInd.setEnabled(true);
+                NextGen.setEnabled(false);
                 appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
                 jTextField3.setText(I.toString());
                 displayInd();
