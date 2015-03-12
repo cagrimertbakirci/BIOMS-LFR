@@ -27,6 +27,13 @@ public class Individual implements Comparable<Individual> {
         Fitness = calcFitness(genetics,sensorTimes);
     }
     
+    public void setVals(int[][] genetics,int number,int[] sensorTimes){
+        Genetics = genetics;
+        Number = number;
+        SensorTimes = sensorTimes;
+        Fitness = calcFitness(genetics,sensorTimes);
+    }
+    
     /**
      * Constructor (this is dangerous, try not to use it)
      * @param genetics - int[][] 2X10 genetics of the individual
@@ -49,6 +56,7 @@ public class Individual implements Comparable<Individual> {
         Number=0;
         Fitness=0;
         SensorTimes = new int[]{0,0,0,0,0,0,0,0,0,0};
+        
     }
     
     //private methods

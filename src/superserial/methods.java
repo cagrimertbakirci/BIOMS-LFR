@@ -200,7 +200,6 @@ public class methods{
      * }catch{ ... } Suggested usage: Generation generation = new
      * Generation("file.save");
      *
-     * @param generation gen number
      * @param file - file to be read from
      * @return - Object Generation
      * @throws IOException
@@ -216,6 +215,7 @@ public class methods{
             individuals = in.readInt();
             Generation gen = new Generation(individuals, generationNumber);
             for (int n = 0; n < individuals; n++) {
+                genetics = new int[2][10];
                 for (int i = 0; i < 10; i++) {
                     genetics[0][i] = in.readInt();
                 }
@@ -225,7 +225,9 @@ public class methods{
                 for (int i = 0; i < 8; i++) {
                     sensorTimes[i] = in.readInt();
                 }
-                Individual individual = new Individual(genetics, n, sensorTimes);
+                
+                Individual individual = Individual.class.newInstance();//new Individual(genetics, n, sensorTimes);
+                individual.setVals(genetics, n, sensorTimes);
                 individual.recalcFitness();
                 gen.addIndividual(individual);
             }
@@ -236,6 +238,9 @@ public class methods{
         } catch (IOException e) {
             System.out.println("Failed to read from file");
             throw e;
+        }catch (InstantiationException|IllegalAccessException e){
+            System.out.println("Failed to create new Individual classes");
+            return null;
         }
 
     }

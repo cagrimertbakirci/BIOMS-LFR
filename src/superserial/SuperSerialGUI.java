@@ -1232,7 +1232,6 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 NextInd.setEnabled(true);
                 NextGen.setEnabled(false);
                 appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
-                jTextField3.setText(I.toString());
                 displayInd();
                 
                 fileChooserFrame.setVisible(false);
@@ -1413,7 +1412,6 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 NextInd.setEnabled(true);
                 NextGen.setEnabled(false);
                 appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
-                jTextField3.setText(I.toString());
                 displayInd();
                 
                 fileChooserFrame.setVisible(false);

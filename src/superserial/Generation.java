@@ -115,6 +115,7 @@ public class Generation {
         if(individualArray==null || individualArray[0]==null){
             this.initialGen();
         }else{
+            /*
             index=0;
             Comparator comp = new IndCompare();
             Arrays.sort(individualArray, comp);
@@ -140,6 +141,7 @@ public class Generation {
             swap(2,14);
             swap(3,9);
             generation++;
+            */
         }
     }
     
