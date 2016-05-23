@@ -21,11 +21,13 @@ public class Generation {
     private int mutationRate=200;
     private int mutationSeverity=20;
     private int crossoverRate=20;
+    private int indNum;
 
     Generation(int individuals, int gen) {
         individualArray = new Individual[individuals];
         generation = gen;
         index = 0;
+        indNum = individuals;
     }
 
     /**

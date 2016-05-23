@@ -73,6 +73,34 @@ class TopFilter extends FileFilter {
     }
 }
 
+class TxtFilter extends FileFilter {
+    /**
+     * @param f file path to check
+     * @return true if the file is of type bot or top
+     */
+    @Override
+    public boolean accept(File f) {
+        if (f.isDirectory()) {
+            return true;
+        }
+        String s = f.getName();
+        int i = s.lastIndexOf('.');
+        int t=i;
+
+        if (i > 0 && i < s.length() - 1) {
+            if(s.substring(i + 1).toLowerCase().equals("txt") || s.substring(i + 1).toLowerCase().equals("text")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+    @Override
+    public String getDescription() {
+        return "Accepts '.txt' and '.text' files";
+    }
+}
+
 class TopBotFilter extends FileFilter {
     /**
      * @param f file path to check

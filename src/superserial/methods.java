@@ -6,12 +6,11 @@ package superserial;
     import java.io.*;  //for reading to a from files
     import java.util.Arrays;
     import java.util.Comparator;
+import java.util.Scanner;
     import org.jfree.chart.ChartFactory;
     import org.jfree.chart.ChartUtilities;
     import org.jfree.chart.JFreeChart;
     import org.jfree.data.category.DefaultCategoryDataset;
-    import org.jfree.chart.plot.PlotOrientation;
-    import org.jfree.util.PublicCloneable;
 
 public class methods{
 
@@ -267,6 +266,88 @@ public class methods{
 
     }
     
+    
+    /**
+     * Retrieves the data of a single generation from a binary file Use try{ ...
+     * }catch{ ... } Suggested usage: Generation generation = new
+     * Generation("file.save");
+     *
+     * @param file - file to be read from
+     * @return - Object Generation
+     * @throws IOException
+     */
+    public Generation getGenerationPlaintext(File file) throws IOException {
+        int generationNumber;
+        int individuals;
+        int[][] genetics = new int[2][10];
+        try {
+            Scanner in = new Scanner(file);
+            generationNumber = 1;
+            individuals = in.nextInt();
+            Generation gen = new Generation(individuals, generationNumber);
+            for (int n = 0; n < individuals; n++) {
+                genetics = new int[2][10];
+                for (int i = 0; i < 10; i++) {
+                    genetics[0][i] = in.nextInt();
+                }
+                for (int i = 0; i < 10; i++) {
+                    genetics[1][i] = in.nextInt();
+                }
+                
+                Individual individual = new Individual(genetics, n);
+                gen.addIndividual(individual);
+            }
+            in.close();
+
+            return gen;
+
+        } catch (IOException e) {
+            System.out.println("Failed to read from file");
+            throw e;
+        }
+
+    }
+    
+    /**
+     * Retrieves the data of a single generation from a binary file Use try{ ...
+     * }catch{ ... } Suggested usage: Generation generation = new
+     * Generation("file.save");
+     *
+     * @param file - file to be read from
+     * @return - Object Generation
+     * @throws IOException
+     */
+    public Generation getIndPlaintext(File file) throws IOException {
+        int generationNumber;
+        int individuals;
+        int[][] genetics = new int[2][10];
+        try {
+            Scanner in = new Scanner(file);
+            generationNumber = 1;
+            individuals = 1;
+            Generation gen = new Generation(individuals, generationNumber);
+            for (int n = 0; n < individuals; n++) {
+                genetics = new int[2][10];
+                for (int i = 0; i < 10; i++) {
+                    genetics[0][i] = in.nextInt();
+                }
+                for (int i = 0; i < 10; i++) {
+                    genetics[1][i] = in.nextInt();
+                }
+                
+                Individual individual = new Individual(genetics, n);
+                gen.addIndividual(individual);
+            }
+            in.close();
+
+            return gen;
+
+        } catch (IOException e) {
+            System.out.println("Failed to read from file");
+            throw e;
+        }
+
+    }
     
     
     /**

@@ -24,7 +24,7 @@ import java.util.TimerTask;
  * @author Carlton Johnson
  */
 public class SuperSerialGUI extends javax.swing.JFrame {
-    private String comPort="COM40";
+    private String comPort="COM5";
     private SerialPort s;
     private methods M=new methods();
     private Generation G;
@@ -114,6 +114,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         AutoSave = new javax.swing.JCheckBox();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         ManualControlToggle = new javax.swing.JToggleButton();
         jSlider1 = new javax.swing.JSlider();
@@ -484,6 +486,20 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         AutoSave.setSelected(true);
         AutoSave.setText("Autosave");
 
+        jButton10.setText("P-Load I");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setText("P-Load G");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -494,25 +510,33 @@ public class SuperSerialGUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(GetGen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SaveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton11))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(saveFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(GetGen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(SaveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(saveFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GenNum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
-                    .addComponent(AutoSave))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(GenNum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4))
+                            .addComponent(AutoSave))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,9 +552,12 @@ public class SuperSerialGUI extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GetGen)
-                    .addComponent(jButton8))
+                    .addComponent(jButton8)
+                    .addComponent(jButton10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(SaveFiles)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SaveFiles)
+                    .addComponent(jButton11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AutoSave)
                 .addGap(15, 15, 15))
@@ -1309,9 +1336,9 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(G!=null && G.getIndividual(indNum)!=null){
+        if(G!=null && G.getIndividual(indNum-1)!=null){
             String s="";
-            for(int[] Row: G.getIndividual(indNum).Genetics){
+            for(int[] Row: G.getIndividual(indNum-1).Genetics){
                 for(int Col: Row){
                     s+=Col+" ";
                 }
@@ -1351,11 +1378,11 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         I.recalcFitness();
         G.replaceIndividual(I, indNum);
         indNum++;
-        if(indNum<25)
+        if(indNum<G.getNumIndividuals())
             I=G.getIndividual(indNum);
         GetGen.setEnabled(false);
         SaveFiles.setEnabled(false);
-        if(indNum>=25){
+        if(indNum>=G.getNumIndividuals()){
             NextInd.setEnabled(false);
             NextGen.setEnabled(true);
             GetGen.setEnabled(true);
@@ -1524,6 +1551,103 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        final JFrame fileChooserFrame = new JFrame("Load Generation");
+        fileChooserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        final JFileChooser FC=new JFileChooser();//add a FileFilter plz tks gby
+        FC.setVisible(true);
+        FC.setCurrentDirectory(new File("saves" + File.separator));
+        
+        TxtFilter filter=new TxtFilter();
+        FC.addChoosableFileFilter(filter);
+        FC.setFileFilter(filter);
+        
+        FC.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(FC.getSelectedFile()!=null){
+                    Generation temp=G;
+                    try{
+                        G=M.getIndPlaintext(FC.getSelectedFile());
+                    }catch(IOException e){
+                        G=temp;
+                        System.out.println("Failed to read from file!!!");
+                    }
+                }
+                
+                indNum=1;
+                genNum=G.getGeneration();
+                I=G.getIndividual(0);
+                jTextField1.setText(""+indNum);
+                jTextField2.setText(""+genNum);
+                NextInd.setEnabled(true);
+                NextGen.setEnabled(false);
+                appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
+                displayInd();
+                
+                fileChooserFrame.setVisible(false);
+                fileChooserFrame.dispose();
+            }
+        });
+        
+        
+        
+        fileChooserFrame.add(FC);
+        
+        fileChooserFrame.pack();
+        fileChooserFrame.setVisible(true);
+        
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        final JFrame fileChooserFrame = new JFrame("Load Generation");
+        fileChooserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        final JFileChooser FC=new JFileChooser();//add a FileFilter plz tks gby
+        FC.setVisible(true);
+        FC.setCurrentDirectory(new File("saves" + File.separator));
+        
+        TxtFilter filter=new TxtFilter();
+        FC.addChoosableFileFilter(filter);
+        FC.setFileFilter(filter);
+        
+        FC.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(FC.getSelectedFile()!=null){
+                    Generation temp=G;
+                    try{
+                        G=M.getGenerationPlaintext(FC.getSelectedFile());
+                    }catch(IOException e){
+                        G=temp;
+                        System.out.println("Failed to read from file!!!");
+                    }
+                }
+                
+                indNum=1;
+                genNum=G.getGeneration();
+                I=G.getIndividual(0);
+                jTextField1.setText(""+indNum);
+                jTextField2.setText(""+genNum);
+                NextInd.setEnabled(true);
+                NextGen.setEnabled(false);
+                appendToPane(jTextPane1,"LOADED\n",Color.BLACK);
+                displayInd();
+                
+                fileChooserFrame.setVisible(false);
+                fileChooserFrame.dispose();
+            }
+        });
+        
+        
+        
+        fileChooserFrame.add(FC);
+        
+        fileChooserFrame.pack();
+        fileChooserFrame.setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
     
     private void printGen(Generation G, Color C){
         for(int i=0;i<G.getNumIndividuals();i++){
@@ -1775,7 +1899,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     }
     
     private void displayInd(){
-        if(G!=null && indNum<25 && G.getIndividual(indNum)!=null){
+        if(G!=null && indNum<G.getNumIndividuals() && G.getIndividual(indNum)!=null){
             String s="~";
             for(int[] Row: G.getIndividual(indNum).Genetics){
                 for(int Col: Row){
@@ -1871,6 +1995,8 @@ public class SuperSerialGUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
