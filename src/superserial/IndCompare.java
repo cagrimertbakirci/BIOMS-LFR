@@ -21,7 +21,7 @@ public class IndCompare implements Comparator<Individual> {
      * @param B second individual to compare
      * @return 1, 0, or -1
      */
-    @Override
+    @Override//this just gets rid of a notification, don't worry about it
     public int compare(Individual A, Individual B) {
         return A.compareTo(B);
     }

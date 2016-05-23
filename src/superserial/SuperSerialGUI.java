@@ -743,7 +743,7 @@ public class SuperSerialGUI extends javax.swing.JFrame {
      */
     private void attachListener() {
         try {
-            s.addEventListener(new SerialPortEventListener() {
+            s.addEventListener(new SerialPortEventListener(){
                 @Override
                 public void serialEvent(SerialPortEvent e) {
                     String InputText;
@@ -1192,6 +1192,57 @@ public class SuperSerialGUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void SendGen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendGen
+        final JFrame fileChooserFrame = new JFrame("Save Generation");
+        fileChooserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        final JFileChooser FC=new JFileChooser();//add a FileFilter plz tks gby
+        FC.setVisible(true);
+        FC.setCurrentDirectory(new File("saves" + File.separator));
+        
+        FC.setApproveButtonText("Save");
+        FC.setApproveButtonToolTipText("Saves current generation");
+        
+        FC.setMultiSelectionEnabled(false);
+        
+        
+        BotFilter filter=new BotFilter();
+        FC.addChoosableFileFilter(filter);
+        FC.setFileFilter(filter);
+        
+        FC.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(FC.getSelectedFile()!=null){
+                    if(FC.getCurrentDirectory().getName().equals("saves")){
+                        appendToPane(jTextPane1,"NEW SAVE\n",Color.BLACK);
+                    }
+                    Generation temp=G;
+                    if(FC.getSelectedFile()!=null){
+                        M.generationSave(G,FC.getSelectedFile().getName());
+                        
+                    }else{
+                        M.generationSave(G,""+G.getGeneration());
+                    }
+                    appendToPane(jTextPane1,"SAVED\n",Color.BLACK);
+                }
+                
+                fileChooserFrame.setVisible(false);
+                fileChooserFrame.dispose();
+            }
+        });
+        
+        
+        
+        fileChooserFrame.add(FC);
+        
+        fileChooserFrame.pack();
+        fileChooserFrame.setVisible(true);
+        
+        
+        
+        
+        
+        
         try{
             M.generationSave(G,saveFileName.getText());
             appendToPane(jTextPane1,"SAVED\n",Color.BLACK);
@@ -1211,6 +1262,11 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         final JFileChooser FC=new JFileChooser();//add a FileFilter plz tks gby
         FC.setVisible(true);
         FC.setCurrentDirectory(new File("saves" + File.separator));
+        
+        BotFilter filter=new BotFilter();
+        FC.addChoosableFileFilter(filter);
+        FC.setFileFilter(filter);
+        
         FC.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1388,6 +1444,11 @@ public class SuperSerialGUI extends javax.swing.JFrame {
         final JFileChooser FC=new JFileChooser();//add a FileFilter plz tks gby
         FC.setVisible(true);
         FC.setCurrentDirectory(new File("saves" + File.separator));
+        
+        TopFilter filter=new TopFilter();
+        FC.addChoosableFileFilter(filter);
+        FC.setFileFilter(filter);
+        
         FC.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {

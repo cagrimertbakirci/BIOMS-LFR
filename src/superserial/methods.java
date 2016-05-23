@@ -41,40 +41,25 @@ public class methods{
         }
     }
 
-    /**
-     * Saves the genetics of one generation to a binary file. -----OBSOLITE-----
-     *
-     * @param genetics
-     * @param individuals
-     * @param generation
-     * @param Fitness
-     * @param file
-     */
-    @Deprecated
-    public static void geneticsSave(int[][] genetics, int individuals, int generation, double Fitness, String file) {    // for machine reading
-        try {
-            DataOutputStream out = new DataOutputStream(new FileOutputStream("saves/" + file + "/" + generation));
-            out.writeInt(generation);
-            out.writeInt(individuals);
-            for (int n = 0; n < individuals; n++) {
-                for (int i = 0; i < 10; i++) {
-                    out.writeInt(genetics[i][0]);
-                }
-                for (int i = 0; i < 10; i++) {
-                    out.writeInt(genetics[i][1]);
-                }
-                for (int i = 0; i < 8; i++) {
-                    out.writeDouble(Fitness);
-                }
-            }
-            out.close();
-        } catch (IOException e) {
-        }
-    }
-    
+
     public static void topSave(Generation gen, String file){
         try{
             File OF=new File("saves" + File.separator + file + File.separator + "TOP.top");
+            OF.getParentFile().mkdirs();
+            OF.createNewFile();
+            DataOutputStream out = new DataOutputStream(new FileOutputStream(OF));
+            out.writeInt(gen.getGeneration());
+            out.close();
+        }catch (IOException e) {
+            System.out.println(e.toString());
+        }catch (SecurityException e){
+            System.out.println(e.toString());
+        }
+    }
+    
+    public static void topSave(Generation gen, File file){
+        try{
+            File OF=new File(file.getParent() + File.separator + "TOP.top");
             OF.getParentFile().mkdirs();
             OF.createNewFile();
             DataOutputStream out = new DataOutputStream(new FileOutputStream(OF));
@@ -121,6 +106,43 @@ public class methods{
         topSave(gen,file);
         try {
             File OF=new File("saves" + File.separator + file + File.separator + gen.getGeneration() + ".bot");
+            OF.getParentFile().mkdirs();
+            OF.createNewFile();
+            DataOutputStream out = new DataOutputStream(new FileOutputStream(OF));
+            out.writeInt(gen.getGeneration());
+            out.writeInt(gen.getNumIndividuals());
+            for (int n = 0; n < gen.getNumIndividuals(); n++) {
+                Individual individual = gen.getIndividual(n);
+                int[][] genetics = individual.getGenetics().clone();
+                for (int i = 0; i < 10; i++) {
+                    out.writeInt(genetics[0][i]);
+                }
+                for (int i = 0; i < 10; i++) {
+                    out.writeInt(genetics[1][i]);
+                }
+                int[] sensorTimes = individual.getSensorTimes();
+                for (int i = 0; i < 8; i++) {
+                    out.writeInt(sensorTimes[i]);
+                }
+            }
+            out.close();
+        }catch (IOException e) {
+            System.out.println(e.toString());
+        }catch (SecurityException e){
+            System.out.println(e.toString());
+        }
+    }
+    
+    /**
+     * Saves the genetics of one generation to a binary file.
+     *
+     * @param gen - generation Object to be saved.
+     * @param file - file to be saved to.
+     */
+    public static void generationSave(Generation gen, File file) {    // for machine reading
+        topSave(gen,file);
+        try {
+            File OF=new File(file.getParent() + File.separator + ".bot");
             OF.getParentFile().mkdirs();
             OF.createNewFile();
             DataOutputStream out = new DataOutputStream(new FileOutputStream(OF));
@@ -310,42 +332,6 @@ public class methods{
         }
         try {
             ChartUtilities.saveChartAsJPEG(out_file, chart, 500, 500);
-        } catch (IOException e) {
-            System.err.print("failed to save graph\n");
-        }
-    }
-
-    /**
-     * graphs the progress through generations from the save files
-     *
-     * @param files - array of strings specifying the files to be read from
-     * @deprecated 
-     */
-    public static void graphGenerationsFromFiles(String[] files) {
-        double fit;
-        double[] fitaves = new double[files.length];
-        int[] gens = new int[files.length];
-        try {
-            for (int i = 0; i < files.length; i++) {
-                Generation gen = getGeneration(i, files[i]);
-                fit = 0;
-                gens[i] = gen.getGeneration();
-                for (int j = 0; j < gen.getNumIndividuals(); j++) {
-                    fit = fit + gen.getIndividual(j).getFitness();
-                }
-                fitaves[i] = fit / gen.getNumIndividuals();
-            }
-        } catch (IOException e) {
-            System.err.print("Failed to get all Generations");
-        }
-        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        for (int i = 0; i < fitaves.length; i++) {
-            dataSet.setValue((Number) fitaves[i], "Fitness", gens[i]);
-        }
-        JFreeChart chart = ChartFactory.createLineChart("title", "Generation", "Average Fitness", dataSet);
-        String save = "saves/defaultgraphGenerationsFromFilessave.jpg";
-        try {
-            ChartUtilities.saveChartAsJPEG(new File(save), chart, 500, 500);
         } catch (IOException e) {
             System.err.print("failed to save graph\n");
         }
