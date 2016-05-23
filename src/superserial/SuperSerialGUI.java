@@ -24,7 +24,7 @@ import java.util.TimerTask;
  * @author Carlton Johnson
  */
 public class SuperSerialGUI extends javax.swing.JFrame {
-    private String comPort="COM5";
+    private String comPort="COM4";
     private SerialPort s;
     private methods M=new methods();
     private Generation G;
